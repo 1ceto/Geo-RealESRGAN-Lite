@@ -3,11 +3,18 @@
 Minimal reproducible code for the Geo-RealESRGAN model described in the manuscript:
 "Perception-Guided Deep Learning for High-Resolution Reconstruction of Sparse 3D Reservoir Property Models"
 
-##  Structure
-
-- `main.py` - Run super-resolution inference
-- `model.py` - Generator model (RRDB-based)
-- `utils.py` - Image I/O utilities
+## Structure
+```
+Geo-RealESRGAN-Lite/
+├── model.py               # Generator + Discriminator (SPP + RRDB)
+├── main.py                # Inference script
+├── train.py               # Training loop
+├── perceptual_loss.py     # VGG-based perceptual loss
+├── data/                  # Input low-res images（by urself）
+├── outputs/               # Output super-resolved results（by urself）
+├── weights/               # Pretrained weights（by urself）
+└── README.md
+```
 
 ### 1. Install dependencies
 ```bash
