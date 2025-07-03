@@ -2,6 +2,9 @@
 
 Minimal reproducible code for the Geo-RealESRGAN model described in the manuscript:
 "Perception-Guided Deep Learning for High-Resolution Reconstruction of Sparse 3D Reservoir Property Models"
+This repository contains a simplified demonstration of the Geo-RealESRGAN model as described in our manuscript.
+The complete source code, including full training procedures and datasets, will be partially made public upon acceptance and publication of the paper.
+
 
 ## Structure
 ```
