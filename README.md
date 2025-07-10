@@ -4,7 +4,6 @@ Geo-realESRGAN is a GAN-based deep learning model designed for super-resolving 3
 
 ## 🌟 Features
 
-✅ Orthogonal slicing & multi-channel encoding  
 ✅ Improved resolution & fidelity over traditional interpolation  
 ✅ Adaptable to various geoscience and reservoir datasets
 
