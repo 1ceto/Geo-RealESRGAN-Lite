@@ -3,20 +3,21 @@
 Minimal reproducible code for the Geo-RealESRGAN model described in the manuscript:
 "Perception-Guided Deep Learning for High-Resolution Reconstruction of Sparse 3D Reservoir Property Models"
 This repository contains a simplified demonstration of the Geo-RealESRGAN model as described in our manuscript.
-The complete source code, including full training procedures and datasets, will be partially made public upon acceptance and publication of the paper.
 
 
 ## Structure
 ```
 Geo-RealESRGAN-Lite/
-├── model.py               # Generator + Discriminator (SPP + RRDB)
-├── main.py                # Inference script
-├── train.py               # Training loop
-├── perceptual_loss.py     # VGG-based perceptual loss
-├── data/                  # Input low-res images（by urself）
-├── outputs/               # Output super-resolved results（by urself）
-├── weights/               # Pretrained weights（by urself）
-└── README.md
+├── datasets/                   # Input data (optional example files)
+│   └── val_LR/
+├── experiments/
+│   └── RealESRGANx2_finetune_yourdata/
+│       └── models/
+│           └── net_g_50000.pth
+├── inference_realesrgan.py     # Inference script
+├── train.py                    # (optional) Training script
+├── requirements.txt            # Python dependencies
+└── README.md                   # Project documentation
 ```
 
 ### 1. Install dependencies
