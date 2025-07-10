@@ -64,7 +64,8 @@ Geo-realESRGAN/
 │       └── models/
 │           └── net_g_50000.pth
 ├── inference_realesrgan.py     # Inference script
-├── train.py                    # (optional) Training script
+├── experiments/
+│   └── train.py                    # (optional) Training script  
 ├── requirements.txt            # Python dependencies
 └── README.md                   # Project documentation
 ```
