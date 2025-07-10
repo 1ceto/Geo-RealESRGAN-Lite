@@ -1,0 +1,132 @@
+# GENERATE TIME: Wed May 28 10:16:00 2025
+# CMD:
+# realesrgan/train.py -opt options/finetune_x2_rrdbnet_ablation3.yml
+
+# general settings
+name: RealESRGANx2_finetune_yourdata
+model_type: SRGANModel
+scale: 2
+num_gpu: 1
+manual_seed: 0
+
+# dataset
+datasets:
+  train:
+    name: train_dataset
+    type: PairedImageDataset
+    dataroot_gt: datasets/train_HR
+    dataroot_lq: datasets/train_LR
+    io_backend:
+      type: disk
+    gt_size: 128
+    use_hflip: true
+    use_rot: true
+    use_shuffle: true
+    num_worker_per_gpu: 4
+    batch_size_per_gpu: 16
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+
+  val:
+    name: val_dataset
+    type: PairedImageDataset
+    dataroot_gt: datasets/val_HR
+    dataroot_lq: datasets/val_LR
+    io_backend:
+      type: disk
+
+# network
+network_g:
+  type: RRDBNet
+  num_in_ch: 3
+  num_out_ch: 3
+  num_feat: 64
+  num_block: 23
+  num_grow_ch: 32
+  scale: 2
+
+network_d:
+  type: UNetDiscriminatorSN
+  num_in_ch: 3
+  num_feat: 64
+  skip_connection: True
+
+
+# path
+path:
+  pretrain_network_g: experiments/pretrained_models/RealESRGAN_x2plus_trimmed.pth
+  param_key_g: params_ema
+  strict_load_g: false
+  resume_state: null
+
+  pretrain_network_d: experiments/pretrained_models/RealESRGAN_x2plus_netD.pth
+  param_key_d: params
+  strict_load_d: true
+
+
+
+
+
+# training settings
+
+train:
+  optim_g:
+    type: Adam
+    lr: 0.0001
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  optim_d:
+    type: Adam
+    lr: 0.0001
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: MultiStepLR
+    milestones: [200000, 300000]
+    gamma: 0.5
+
+  total_iter: 60000
+  warmup_iter: -1
+
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 0.1
+    reduction: mean
+
+  perceptual_opt:
+    type: PerceptualLoss
+    layer_weights:
+      'conv5_4': 1.0
+    vgg_type: vgg19
+    use_input_norm: true
+    perceptual_weight: 0.0
+    style_weight: 0
+    criterion: l1
+
+  gan_opt:
+    type: GANLoss
+    gan_type: vanilla
+    loss_weight: 0.0
+    real_label_val: 1.0
+    fake_label_val: 0.0
+
+
+# validation
+val:
+  val_freq: 5000
+  save_img: true
+
+# logging
+logger:
+  print_freq: 100
+  save_checkpoint_freq: 5000
+  use_tb_logger: true
+
+visualization:
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+work_dir: ./experiments/ablation_no_perceptual_full
